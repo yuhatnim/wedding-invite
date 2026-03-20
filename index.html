@@ -884,68 +884,6 @@
       color: #6a6665;
     }
 
-    .gallery-intro {
-      margin-bottom: 18px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .gallery-item {
-      width: 100%;
-      aspect-ratio: 0.82 / 1;
-      object-fit: cover;
-      border-radius: 24px;
-      cursor: pointer;
-      background: #f3eeeb;
-      box-shadow:
-        0 12px 28px rgba(71,46,35,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.35);
-      filter: saturate(0.96);
-      transform-origin: center center;
-      animation: livePhotoFloat 8.5s ease-in-out infinite;
-      transition:
-        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.35s ease;
-      will-change: transform;
-    }
-
-    .gallery-item::selection { background: transparent; }
-
-    .gallery-item:nth-child(2n) {
-      animation-duration: 10s;
-      animation-delay: -1.2s;
-    }
-
-    .gallery-item:nth-child(3n) {
-      animation-duration: 11.5s;
-      animation-delay: -2.2s;
-    }
-
-    .gallery-item:nth-child(4n) {
-      animation-duration: 9.2s;
-      animation-delay: -1.8s;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-6px) scale(1.018);
-      filter: saturate(1.02) brightness(1.01);
-      box-shadow: 0 18px 36px rgba(71,46,35,0.13);
-    }
-
-    .gallery-item.gallery-tall {
-      aspect-ratio: 0.78 / 1.08;
-    }
-
-    .gallery-item.gallery-wide {
-      grid-column: span 2;
-      aspect-ratio: 1.5 / 1;
-    }
 
     .account-intro {
       text-align: center;
@@ -1247,78 +1185,10 @@
       .poem-highlight { font-size: 23px; }
       .button-row.three { grid-template-columns: 1fr; }
       .family-grid { grid-template-columns: 1fr; }
-      .gallery-item.gallery-wide { grid-column: span 1; aspect-ratio: 0.82 / 1; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero-bg,
-      .hero-light,
-      .lock-date,
-      .lock-time,
-      .hero-inner,
-      .hero-photo-chip,
-      .hero-title,
-      .hero-copy,
-      .hero-divider,
-      .hero-names,
-      .hero-date,
-      .hero-place,
-      .swipe-indicator,
-      .scroll-hint,
-      .parallax-bg,
-      .gallery-item,
-      .lightbox,
-      .lightbox img {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-      .gallery-scroll-wrap {
-  position: relative;
-  margin-top: 6px;
-}
-
-.gallery-scroll {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding: 4px 2px 8px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.gallery-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.gallery-slide {
-  flex: 0 0 64%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: 24px;
-  background: #f3eeeb;
-  scroll-snap-align: center;
-  cursor: pointer;
-  box-shadow:
-    0 12px 28px rgba(71,46,35,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.35);
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.3s ease;
-}
-
-.gallery-slide:active {
-  transform: scale(0.985);
-}
-
-@media (max-width: 360px) {
-  .gallery-slide {
-    flex-basis: 86%;
-  }
-  .gallery-carousel {
+   
+.gallery-carousel {
   position: relative;
   margin-top: 8px;
 }
@@ -1339,7 +1209,7 @@
 }
 
 .gallery-slide {
-  flex: 0 0 68%;
+  flex: 0 0 64%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 26px;
@@ -1407,8 +1277,30 @@
     flex-basis: 74%;
   }
 }
+    @media (prefers-reduced-motion: reduce) {
+  .hero-bg,
+  .hero-light,
+  .lock-date,
+  .lock-time,
+  .hero-inner,
+  .hero-photo-chip,
+  .hero-title,
+  .hero-copy,
+  .hero-divider,
+  .hero-names,
+  .hero-date,
+  .hero-place,
+  .swipe-indicator,
+  .scroll-hint,
+  .parallax-bg,
+  .lightbox,
+  .lightbox img {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 
-@media (prefers-reduced-motion: reduce) {
   .gallery-scroll {
     scroll-behavior: auto;
   }
@@ -1420,8 +1312,6 @@
     opacity: 1;
   }
 }
-}
-    }
   </style>
 </head>
 <body>
@@ -1648,28 +1538,27 @@
   </section>
 
   <section class="section">
-    <div class="card">
-      <div class="section-label">Moments</div>
-      <h2 class="section-title">우리의 순간</h2>
-      <div class="divider"></div>
+  <div class="card">
+    <div class="section-label">Moments</div>
+    <h2 class="section-title">우리의 순간</h2>
+    <div class="divider"></div>
 
-      <div class="message gallery-intro">
-        
     <div class="gallery-carousel" id="galleryCarousel">
-  <div class="gallery-scroll" id="galleryScroll">
-    <img src="photo1.jpg" alt="웨딩 사진 1" class="gallery-slide is-active" loading="lazy">
-    <img src="photo2.jpg" alt="웨딩 사진 2" class="gallery-slide" loading="lazy">
-    <img src="photo3.jpg" alt="웨딩 사진 3" class="gallery-slide" loading="lazy">
-    <img src="photo4.jpg" alt="웨딩 사진 4" class="gallery-slide" loading="lazy">
-    <img src="photo5.jpg" alt="웨딩 사진 5" class="gallery-slide" loading="lazy">
-    <img src="photo6.jpg" alt="웨딩 사진 6" class="gallery-slide" loading="lazy">
-    <img src="photo7.jpg" alt="웨딩 사진 7" class="gallery-slide" loading="lazy">
-    <img src="photo8.jpg" alt="웨딩 사진 8" class="gallery-slide" loading="lazy">
-  </div>
+      <div class="gallery-scroll" id="galleryScroll">
+        <img src="photo1.jpg" alt="웨딩 사진 1" class="gallery-slide is-active" loading="lazy">
+        <img src="photo2.jpg" alt="웨딩 사진 2" class="gallery-slide" loading="lazy">
+        <img src="photo3.jpg" alt="웨딩 사진 3" class="gallery-slide" loading="lazy">
+        <img src="photo4.jpg" alt="웨딩 사진 4" class="gallery-slide" loading="lazy">
+        <img src="photo5.jpg" alt="웨딩 사진 5" class="gallery-slide" loading="lazy">
+        <img src="photo6.jpg" alt="웨딩 사진 6" class="gallery-slide" loading="lazy">
+        <img src="photo7.jpg" alt="웨딩 사진 7" class="gallery-slide" loading="lazy">
+        <img src="photo8.jpg" alt="웨딩 사진 8" class="gallery-slide" loading="lazy">
+      </div>
 
-  <div class="gallery-dots" id="galleryDots"></div>
-</div>
-  </section>
+      <div class="gallery-dots" id="galleryDots"></div>
+    </div>
+  </div>
+</section>
 
   <section class="section">
     <div class="card">
@@ -1922,6 +1811,9 @@
 
   window.open(kakaoWebUrl, "_blank", "noopener");
 }
+    if (smartRouteBtn) {
+  smartRouteBtn.addEventListener("click", openSmartRoute);
+}
 
     accountPanels.forEach((panel) => {
       const toggle = panel.querySelector(".account-toggle");
@@ -2020,12 +1912,18 @@
       lightboxImage.src = "";
       document.body.style.overflow = "";
     }
+    
+galleryItems.forEach((img) => {
+  img.addEventListener("click", () => {
+    openLightbox(img.src, img.alt);
+  });
 
-    galleryItems.forEach((img) => {
-      img.addEventListener("click", () => {
-        openLightbox(img.src, img.alt);
-      });
-      let galleryIndex = 0;
+  img.addEventListener("error", () => {
+    img.style.opacity = "0.4";
+    img.alt = "이미지를 불러오지 못했습니다";
+  });
+});
+    let galleryIndex = 0;
 let autoSlideTimer = null;
 let resumeTimer = null;
 
@@ -2149,13 +2047,7 @@ if (galleryScroll && galleryItems.length) {
   window.addEventListener("blur", stopAutoSlide);
   window.addEventListener("focus", startAutoSlide);
 }
-
-      img.addEventListener("error", () => {
-        img.style.opacity = "0.4";
-        img.alt = "이미지를 불러오지 못했습니다";
-      });
-    });
-
+   
     if (lightboxClose) {
       lightboxClose.addEventListener("click", closeLightbox);
     }
