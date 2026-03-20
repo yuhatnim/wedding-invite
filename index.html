@@ -116,18 +116,18 @@
     }
 
     .hero-bg {
-      position: absolute;
-      inset: -6%;
-      background:
-        linear-gradient(to bottom, rgba(10,10,12,0.18), rgba(10,10,12,0.34)),
-        url("photo1.jpg") center center / cover no-repeat;
-      transform: scale(1.08);
-      filter: saturate(0.88) brightness(0.95) contrast(1.02);
-      animation:
-        iosHeroIntro 3s var(--ease) forwards,
-        iosHeroFloat 18s ease-in-out 3s infinite alternate;
-      will-change: transform;
-    }
+  position: absolute;
+  inset: -6%;
+  background:
+    linear-gradient(to bottom, rgba(10,10,12,0.18), rgba(10,10,12,0.34)),
+    url("photo1.jpg") center 35% / cover no-repeat;
+  transform: scale(1.02);
+  filter: saturate(0.88) brightness(0.95) contrast(1.02);
+  animation:
+    iosHeroIntro 3s var(--ease) forwards,
+    iosHeroFloat 18s ease-in-out 3s infinite alternate;
+  will-change: transform;
+}
 
     .hero-vignette {
       position: absolute;
@@ -482,15 +482,15 @@
     }
 
     .parallax-bg {
-      position: absolute;
-      inset: -44px 0;
-      background:
-        linear-gradient(to bottom, rgba(255,250,247,0.08), rgba(255,250,247,0.18)),
-        url("photo2.jpg") center center / cover no-repeat;
-      transform: translate3d(0,0,0) scale(1.04);
-      filter: saturate(0.88) brightness(1.03);
-      will-change: transform;
-    }
+  position: absolute;
+  inset: -44px 0;
+  background:
+    linear-gradient(to bottom, rgba(255,250,247,0.08), rgba(255,250,247,0.18)),
+    url("photo2.jpg") center 35% / cover no-repeat;
+  transform: translate3d(0,0,0) scale(1.01);
+  filter: saturate(0.88) brightness(1.03);
+  will-change: transform;
+}
 
     .parallax-wrap::before {
       content: "";
@@ -1209,8 +1209,8 @@
 }
 
 .gallery-slide {
-  flex: 0 0 64%;
-  aspect-ratio: 4 / 5;
+  flex: 0 0 70%;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 26px;
   background: #f3eeeb;
