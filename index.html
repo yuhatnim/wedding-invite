@@ -1294,7 +1294,7 @@
 }
 
 .gallery-slide {
-  flex: 0 0 82%;
+  flex: 0 0 64%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 24px;
@@ -1318,6 +1318,108 @@
   .gallery-slide {
     flex-basis: 86%;
   }
+  .gallery-carousel {
+  position: relative;
+  margin-top: 8px;
+}
+
+.gallery-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 8px 22px 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-slide {
+  flex: 0 0 68%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 26px;
+  background: #f3eeeb;
+  scroll-snap-align: center;
+  cursor: pointer;
+  opacity: 0.52;
+  filter: blur(1.4px) saturate(0.86) brightness(0.94);
+  transform: scale(0.88);
+  box-shadow:
+    0 10px 24px rgba(71,46,35,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.28);
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.gallery-slide.is-active {
+  opacity: 1;
+  filter: blur(0) saturate(1.02) brightness(1);
+  transform: scale(1);
+  box-shadow:
+    0 18px 36px rgba(71,46,35,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.34);
+}
+
+.gallery-slide:active {
+  transform: scale(0.97);
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-top: 6px;
+}
+
+.gallery-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(90, 77, 74, 0.18);
+  transition:
+    width 0.28s ease,
+    background 0.28s ease,
+    opacity 0.28s ease;
+}
+
+.gallery-dot.is-active {
+  width: 18px;
+  background: rgba(58, 47, 43, 0.82);
+}
+
+@media (max-width: 360px) {
+  .gallery-scroll {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .gallery-slide {
+    flex-basis: 74%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-scroll {
+    scroll-behavior: auto;
+  }
+
+  .gallery-slide {
+    transition: none;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+}
 }
     }
   </style>
@@ -1553,9 +1655,9 @@
 
       <div class="message gallery-intro">
         
-      <div class="gallery-scroll-wrap">
-  <div class="gallery-scroll">
-    <img src="photo1.jpg" alt="웨딩 사진 1" class="gallery-slide" loading="lazy">
+    <div class="gallery-carousel" id="galleryCarousel">
+  <div class="gallery-scroll" id="galleryScroll">
+    <img src="photo1.jpg" alt="웨딩 사진 1" class="gallery-slide is-active" loading="lazy">
     <img src="photo2.jpg" alt="웨딩 사진 2" class="gallery-slide" loading="lazy">
     <img src="photo3.jpg" alt="웨딩 사진 3" class="gallery-slide" loading="lazy">
     <img src="photo4.jpg" alt="웨딩 사진 4" class="gallery-slide" loading="lazy">
@@ -1564,8 +1666,9 @@
     <img src="photo7.jpg" alt="웨딩 사진 7" class="gallery-slide" loading="lazy">
     <img src="photo8.jpg" alt="웨딩 사진 8" class="gallery-slide" loading="lazy">
   </div>
+
+  <div class="gallery-dots" id="galleryDots"></div>
 </div>
-    </div>
   </section>
 
   <section class="section">
@@ -1713,6 +1816,8 @@
     const lightboxClose = document.getElementById("lightboxClose");
     const accountPanels = document.querySelectorAll(".account-panel");
     const galleryItems = document.querySelectorAll(".gallery-slide");
+    const galleryScroll = document.getElementById("galleryScroll");
+    const galleryDots = document.getElementById("galleryDots");
 
     function showToast(message) {
       toast.textContent = message;
@@ -1920,6 +2025,130 @@
       img.addEventListener("click", () => {
         openLightbox(img.src, img.alt);
       });
+      let galleryIndex = 0;
+let autoSlideTimer = null;
+let resumeTimer = null;
+
+function buildGalleryDots() {
+  if (!galleryDots || !galleryItems.length) return;
+  galleryDots.innerHTML = "";
+
+  galleryItems.forEach((_, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "gallery-dot" + (index === 0 ? " is-active" : "");
+    dot.setAttribute("aria-label", `${index + 1}번째 사진 보기`);
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      pauseAndResumeAutoSlide();
+    });
+    galleryDots.appendChild(dot);
+  });
+}
+
+function updateActiveSlide(index) {
+  galleryItems.forEach((img, i) => {
+    img.classList.toggle("is-active", i === index);
+  });
+
+  if (galleryDots) {
+    [...galleryDots.children].forEach((dot, i) => {
+      dot.classList.toggle("is-active", i === index);
+    });
+  }
+
+  galleryIndex = index;
+}
+
+function goToSlide(index) {
+  if (!galleryScroll || !galleryItems.length) return;
+
+  const target = galleryItems[index];
+  if (!target) return;
+
+  const left =
+    target.offsetLeft - (galleryScroll.clientWidth - target.clientWidth) / 2;
+
+  galleryScroll.scrollTo({
+    left,
+    behavior: "smooth"
+  });
+
+  updateActiveSlide(index);
+}
+
+function getClosestSlideIndex() {
+  if (!galleryScroll || !galleryItems.length) return 0;
+
+  const center = galleryScroll.scrollLeft + galleryScroll.clientWidth / 2;
+
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  galleryItems.forEach((img, index) => {
+    const imgCenter = img.offsetLeft + img.clientWidth / 2;
+    const distance = Math.abs(center - imgCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  return closestIndex;
+}
+
+function startAutoSlide() {
+  if (!galleryItems.length) return;
+
+  stopAutoSlide();
+  autoSlideTimer = setInterval(() => {
+    const nextIndex = (galleryIndex + 1) % galleryItems.length;
+    goToSlide(nextIndex);
+  }, 2800);
+}
+
+function stopAutoSlide() {
+  if (autoSlideTimer) {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = null;
+  }
+}
+
+function pauseAndResumeAutoSlide() {
+  stopAutoSlide();
+  clearTimeout(resumeTimer);
+  resumeTimer = setTimeout(() => {
+    startAutoSlide();
+  }, 4500);
+}
+
+if (galleryScroll && galleryItems.length) {
+  buildGalleryDots();
+  updateActiveSlide(0);
+
+  setTimeout(() => {
+    goToSlide(0);
+    startAutoSlide();
+  }, 250);
+
+  let scrollTimer = null;
+
+  galleryScroll.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const index = getClosestSlideIndex();
+      updateActiveSlide(index);
+    }, 80);
+  });
+
+  galleryScroll.addEventListener("touchstart", pauseAndResumeAutoSlide, { passive: true });
+  galleryScroll.addEventListener("mousedown", pauseAndResumeAutoSlide);
+  galleryScroll.addEventListener("wheel", pauseAndResumeAutoSlide, { passive: true });
+
+  window.addEventListener("blur", stopAutoSlide);
+  window.addEventListener("focus", startAutoSlide);
+}
 
       img.addEventListener("error", () => {
         img.style.opacity = "0.4";
