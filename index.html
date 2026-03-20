@@ -1761,10 +1761,6 @@
   <button class="lightbox-nav right" id="lightboxNext" aria-label="다음 사진">›</button>
 </div>
 
-  <button class="lightbox-nav left" id="lightboxPrev">‹</button>
-  <button class="lightbox-nav right" id="lightboxNext">›</button>
-</div>
-
   <script
     src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
 
@@ -2010,6 +2006,38 @@ function openLightbox(index) {
     });
   });
 }
+let currentLightboxIndex = 0;
+
+function openLightbox(index) {
+  if (!lightbox || !lightboxSlider) return;
+
+  lightboxSlider.innerHTML = "";
+
+  galleryItems.forEach((img) => {
+    const slide = document.createElement("div");
+    slide.className = "lightbox-slide";
+
+    const image = document.createElement("img");
+    image.src = img.src;
+    image.alt = img.alt || "확대 이미지";
+
+    slide.appendChild(image);
+    lightboxSlider.appendChild(slide);
+  });
+
+  currentLightboxIndex = index;
+
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  requestAnimationFrame(() => {
+    lightboxSlider.scrollTo({
+      left: currentLightboxIndex * lightboxSlider.clientWidth,
+      behavior: "auto"
+    });
+  });
+}
 
 function closeLightbox() {
   if (!lightbox || !lightboxSlider) return;
@@ -2017,22 +2045,14 @@ function closeLightbox() {
   lightbox.setAttribute("aria-hidden", "true");
   lightboxSlider.innerHTML = "";
   document.body.style.overflow = "";
-}function openLightbox(src, alt) {
-      if (!lightbox || !lightboxImage) return;
-      lightboxImage.src = src;
-      lightboxImage.alt = alt || "확대 이미지";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeLightbox() {
-      if (!lightbox || !lightboxImage) return;
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden", "true");
-      lightboxImage.src = "";
-      document.body.style.overflow = "";
-    }
+}
+function closeLightbox() {
+  if (!lightbox || !lightboxSlider) return;
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxSlider.innerHTML = "";
+  document.body.style.overflow = "";
+}
     
 galleryItems.forEach((img, index) => {
   img.addEventListener("click", () => {
