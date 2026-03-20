@@ -1197,11 +1197,12 @@
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  padding: 8px 22px 14px;
+  padding: 8px 14px 14px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   scroll-behavior: smooth;
+  align-items: center;
 }
 
 .gallery-scroll::-webkit-scrollbar {
@@ -1209,16 +1210,18 @@
 }
 
 .gallery-slide {
-  flex: 0 0 70%;
+  flex: 0 0 72%;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border-radius: 26px;
   background: #f3eeeb;
+  padding: 8px;
   scroll-snap-align: center;
   cursor: pointer;
-  opacity: 0.52;
-  filter: blur(1.4px) saturate(0.86) brightness(0.94);
-  transform: scale(0.88);
+  opacity: 0.55;
+  filter: blur(1px) saturate(0.9) brightness(0.97);
+  transform: scale(0.9);
   box-shadow:
     0 10px 24px rgba(71,46,35,0.06),
     inset 0 1px 0 rgba(255,255,255,0.28);
@@ -1248,7 +1251,7 @@
   justify-content: center;
   align-items: center;
   gap: 7px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .gallery-dot {
@@ -1269,12 +1272,12 @@
 
 @media (max-width: 360px) {
   .gallery-scroll {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .gallery-slide {
-    flex-basis: 74%;
+    flex-basis: 78%;
   }
 }
     @media (prefers-reduced-motion: reduce) {
