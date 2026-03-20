@@ -1274,6 +1274,51 @@
         transform: none !important;
         transition: none !important;
       }
+      .gallery-scroll-wrap {
+  position: relative;
+  margin-top: 6px;
+}
+
+.gallery-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-slide {
+  flex: 0 0 78%;
+  aspect-ratio: 0.78 / 1;
+  object-fit: cover;
+  border-radius: 24px;
+  background: #f3eeeb;
+  scroll-snap-align: center;
+  cursor: pointer;
+  box-shadow:
+    0 12px 28px rgba(71,46,35,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.gallery-slide:active {
+  transform: scale(0.985);
+}
+
+@media (max-width: 360px) {
+  .gallery-slide {
+    flex-basis: 86%;
+  }
+}
     }
   </style>
 </head>
@@ -1507,9 +1552,7 @@
       <div class="divider"></div>
 
       <div class="message gallery-intro">
-        함께한 시간의 결이 담긴 장면들을 모았습니다.
-      </div>
-
+        
       <div class="gallery-scroll-wrap">
   <div class="gallery-scroll">
     <img src="photo1.jpg" alt="웨딩 사진 1" class="gallery-slide" loading="lazy">
@@ -1669,7 +1712,7 @@
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
     const accountPanels = document.querySelectorAll(".account-panel");
-    const galleryItems = document.querySelectorAll(".gallery-item");
+    const galleryItems = document.querySelectorAll(".gallery-slide");
 
     function showToast(message) {
       toast.textContent = message;
