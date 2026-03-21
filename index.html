@@ -2130,6 +2130,16 @@ document.querySelectorAll('.account-toggle').forEach((button) => {
     );
   });
 });
+    document.querySelectorAll('.account-toggle').forEach((button) => {
+  button.addEventListener('click', () => {
+    const panel = button.closest('.account-panel');
+    if (!panel) return;
+
+    const isOpen = panel.classList.contains('open');
+    panel.classList.toggle('open', !isOpen);
+    button.setAttribute('aria-expanded', String(!isOpen));
+  });
+});
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
