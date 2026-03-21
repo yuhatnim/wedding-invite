@@ -2300,14 +2300,7 @@ if (musicToggle && bgm) {
   document.addEventListener('click', startMusicOnce);
   document.addEventListener('touchstart', startMusicOnce);
 })();
-    const heroBottom = document.getElementById('heroBottom');
 
-if (heroBottom) {
-  heroBottom.addEventListener('click', function () {
-    const bgm = document.getElementById('bgm');
-    if (bgm) bgm.play().catch(() => {});
-  });
-}
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
