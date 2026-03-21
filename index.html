@@ -1691,7 +1691,7 @@
 </head>
 <body>
 <!-- 🎧 음악 버튼 -->
-<div class="music-btn" id="musicBtn">🔊</div>
+<div class="music-btn" id="musicBtn">🎵</div>
 
 <!-- 🎧 오디오 -->
 <audio id="bgm" src="music.mp3" loop></audio>
@@ -2765,30 +2765,38 @@ const btn = document.getElementById('musicBtn');
 
 let isPlaying = false;
 
-// 🎧 버튼 클릭 시 토글
-btn.addEventListener('click', () => {
+// 🎵 버튼 클릭 (토글)
+btn.addEventListener('click', (e) => {
+  e.stopPropagation(); // 중요!!
+
   if (isPlaying) {
     audio.pause();
-    btn.innerText = '🔇';
+    btn.innerText = '🎵';
   } else {
     audio.play().catch(() => {});
-    btn.innerText = '🔊';
+    btn.innerText = '🎵';
   }
   isPlaying = !isPlaying;
 });
 
-// 🎧 첫 터치 자동재생
+// 🎵 첫 터치 자동재생 (핵심 수정버전)
 function playMusicOnce() {
-  audio.play().catch(() => {});
-  btn.innerText = '🔊';
-  isPlaying = true;
+  if (!isPlaying) {
+    audio.play().then(() => {
+      isPlaying = true;
+      btn.innerText = '🎵';
+    }).catch(() => {});
+  }
 
-  document.removeEventListener('click', playMusicOnce);
   document.removeEventListener('touchstart', playMusicOnce);
+  document.removeEventListener('click', playMusicOnce);
 }
 
-document.addEventListener('click', playMusicOnce);
-document.addEventListener('touchstart', playMusicOnce);
+// 📱 모바일 우선
+document.addEventListener('touchstart', playMusicOnce, { once: true });
+
+// 💻 PC 대비
+document.addEventListener('click', playMusicOnce, { once: true });
 </script>
 </body>
 </html>
