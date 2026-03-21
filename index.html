@@ -2276,7 +2276,38 @@ if (musicToggle && bgm) {
     document.removeEventListener('touchstart', firstTouchAction);
   });
 }
-    
+    // 🎧 첫 터치 시 자동재생
+(function () {
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+
+  bgm.volume = 0.24; // 볼륨 (원하면 0.2~0.3 사이 조절)
+
+  let hasPlayed = false;
+
+  function startMusicOnce() {
+    if (hasPlayed) return;
+    hasPlayed = true;
+
+    bgm.play().catch(() => {});
+
+    // 이벤트 제거 (한 번만 실행)
+    document.removeEventListener('click', startMusicOnce);
+    document.removeEventListener('touchstart', startMusicOnce);
+  }
+
+  // 👇 핵심: 첫 터치/클릭 감지
+  document.addEventListener('click', startMusicOnce);
+  document.addEventListener('touchstart', startMusicOnce);
+})();
+    const heroBottom = document.getElementById('heroBottom');
+
+if (heroBottom) {
+  heroBottom.addEventListener('click', function () {
+    const bgm = document.getElementById('bgm');
+    if (bgm) bgm.play().catch(() => {});
+  });
+}
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
