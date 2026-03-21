@@ -2185,6 +2185,9 @@ document.querySelectorAll('.account-toggle').forEach((button) => {
   });
 });
     const bgm = document.getElementById('bgm');
+    const btn = document.getElementById('musicBtn');
+    audio.muted = false;
+audio.volume = 1;
 const musicToggle = document.getElementById('musicToggle');
 const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
 
@@ -2839,6 +2842,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
   updateButton();
 });
+</script>
+  <script>
+(function () {
+  const audio = document.getElementById('bgm');
+  const btn = document.getElementById('musicBtn');
+
+  if (!audio || !btn) return;
+
+  let triedAutoPlay = false;
+
+  function updateBtn() {
+    btn.textContent = '🎵';
+    btn.style.opacity = audio.paused ? '0.7' : '1';
+  }
+
+  async function playAudio() {
+    try {
+      await audio.play();
+      updateBtn();
+    } catch (err) {}
+  }
+
+  function firstUserAction() {
+    if (triedAutoPlay) return;
+    triedAutoPlay = true;
+    playAudio();
+  }
+
+  document.addEventListener('click', firstUserAction, { once: true });
+  document.addEventListener('touchstart', firstUserAction, { once: true });
+
+  btn.addEventListener('click', async function (e) {
+    e.stopPropagation();
+
+    if (audio.paused) {
+      await audio.play();
+    } else {
+      audio.pause();
+    }
+    updateBtn();
+  });
+
+  audio.addEventListener('play', updateBtn);
+  audio.addEventListener('pause', updateBtn);
+
+  updateBtn();
+})();
 </script>
 </body>
 </html>
