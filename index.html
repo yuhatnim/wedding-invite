@@ -533,25 +533,26 @@
     }
 
     .family-box {
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.48);
-      border-radius: var(--radius-lg);
-      padding: 18px 12px 16px;
-      text-align: center;
-      box-shadow:
-        0 10px 24px rgba(71,46,35,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
+  background: rgba(255,255,255,0.66);
+  border: 1px solid rgba(255,255,255,0.52);
+  border-radius: var(--radius-lg);
+  padding: 20px 14px 18px;
+  text-align: center;
+  box-shadow:
+    0 14px 30px rgba(71,46,35,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
 
     .family-label {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #b39288;
-      margin-bottom: 8px;
-    }
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #b79a90;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
 
     .name-call {
       display: flex;
@@ -562,20 +563,32 @@
     }
 
     .family-name {
-      font-size: 19px;
-      font-weight: 700;
-      margin: 0;
-      color: #171515;
-    }
-
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #171515;
+}
     .family-parent {
-      font-size: 13px;
-      line-height: 1.8;
-      color: #6d6968;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+  font-size: 13px;
+  line-height: 2;
+  letter-spacing: 0.02em;
+  color: #6f6866;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+    .family-parent-single {
+  display: block;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.family-parent strong {
+  color: #2b2523;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
 
     .parent-line {
       display: flex;
@@ -1470,29 +1483,28 @@
       <div class="divider"></div>
 
       <div class="family-grid">
-        <div class="family-box">
-          <div class="family-label">Groom</div>
-          <div class="name-call">
-            <div class="family-name">김진원</div>
-            <a class="call-link" href="tel:01063444119" aria-label="신랑에게 전화하기">📞</a>
-          </div>
-          <div class="family-parent">
-            <div class="parent-line"><b>어머니</b> 조영자</div>
-          </div>
-        </div>
+  <div class="family-box">
+    <div class="family-label">GROOM</div>
+    <div class="name-call">
+      <div class="family-name">김진원</div>
+      <a class="call-link" href="tel:01063444119" aria-label="신랑에게 전화하기">📞</a>
+    </div>
+    <div class="family-parent family-parent-single">
+      조영자의 아들 <strong>김진원</strong>
+    </div>
+  </div>
 
-        <div class="family-box">
-          <div class="family-label">Bride</div>
-          <div class="name-call">
-            <div class="family-name">유햇님</div>
-            <a class="call-link" href="tel:01030752408" aria-label="신부에게 전화하기">📞</a>
-          </div>
-          <div class="family-parent">
-            <div class="parent-line"><b>아버지</b> 유영창</div>
-            <div class="parent-line"><b>어머니</b> 황길자</div>
-          </div>
-        </div>
-      </div>
+  <div class="family-box">
+    <div class="family-label">BRIDE</div>
+    <div class="name-call">
+      <div class="family-name">유햇님</div>
+      <a class="call-link" href="tel:01030752408" aria-label="신부에게 전화하기">📞</a>
+    </div>
+    <div class="family-parent family-parent-single">
+      유영창 · 황길자의 딸 <strong>유햇님</strong>
+    </div>
+  </div>
+</div>
     </div>
   </section>
 
