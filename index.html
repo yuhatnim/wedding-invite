@@ -1580,56 +1580,7 @@
     height: 17px;
   }
 }
-    .music-toggle {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 9999;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 44px;
-  padding: 0 14px;
-  border: 1px solid rgba(120, 92, 88, 0.14);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: #7f6661;
-  box-shadow: 0 10px 28px rgba(50, 30, 20, 0.10);
-  font-size: 0.92rem;
-  letter-spacing: -0.02em;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
-  -webkit-tap-highlight-color: transparent;
-}
 
-.music-toggle:active {
-  transform: scale(0.97);
-}
-
-.music-toggle.is-playing {
-  background: rgba(255, 248, 248, 0.92);
-  box-shadow: 0 12px 30px rgba(50, 30, 20, 0.14);
-}
-
-.music-toggle-icon {
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.music-toggle-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.music-toggle-text {
-  white-space: nowrap;
-  font-weight: 600;
-}
 
 @media (max-width: 480px) {
   .music-toggle {
@@ -1640,25 +1591,7 @@
     font-size: 0.88rem;
   }
 }
-    #bgm {
-  display: block !important;
-  width: calc(100% - 32px);
-  margin: 16px auto;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 9999;
-}
-    audio,
-#bgm {
-  display: block !important;
-  width: calc(100% - 32px) !important;
-  margin: 16px auto !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 99999 !important;
-}
+
     /* 🎧 아이폰 감성 음악 버튼 */
 .music-btn {
   position: fixed;
@@ -1690,11 +1623,8 @@
   </style>
 </head>
 <body>
-<!-- 🎧 음악 버튼 -->
 <div class="music-btn" id="musicBtn">🎵</div>
-
-<!-- 🎧 오디오 -->
-<audio id="bgm" src="music.mp3" loop></audio>
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
   
   <section class="hero hero-ready">
     <div class="hero-bg"></div>
@@ -2311,6 +2241,7 @@ if (musicToggle && bgm) {
   });
 }
     // 🎧 첫 터치 시 자동재생
+
 (function () {
   const bgm = document.getElementById('bgm');
   if (!bgm) return;
@@ -2797,6 +2728,117 @@ document.addEventListener('touchstart', playMusicOnce, { once: true });
 
 // 💻 PC 대비
 document.addEventListener('click', playMusicOnce, { once: true });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const audio = document.getElementById('bgm');
+  const btn = document.getElementById('musicBtn');
+
+  if (!audio || !btn) return;
+
+  let started = false;
+
+  function updateButton() {
+    btn.textContent = audio.paused ? '🎵' : '🎵';
+    btn.style.opacity = audio.paused ? '0.75' : '1';
+  }
+
+  async function tryPlay() {
+    try {
+      await audio.play();
+      started = true;
+      updateButton();
+    } catch (e) {
+      console.log('재생 실패:', e);
+    }
+  }
+
+  function firstTouchPlay() {
+    if (!started) {
+      tryPlay();
+    }
+  }
+
+  // 아무 곳이나 첫 터치 시 재생
+  window.addEventListener('touchstart', firstTouchPlay, { passive: true });
+  window.addEventListener('click', firstTouchPlay);
+
+  // 버튼 눌렀을 때 토글
+  btn.addEventListener('click', async function (e) {
+    e.stopPropagation();
+
+    try {
+      if (audio.paused) {
+        await audio.play();
+        started = true;
+      } else {
+        audio.pause();
+      }
+      updateButton();
+    } catch (e) {
+      console.log('버튼 재생 실패:', e);
+    }
+  });
+
+  audio.addEventListener('play', updateButton);
+  audio.addEventListener('pause', updateButton);
+
+  updateButton();
+});
+ 
+document.addEventListener('DOMContentLoaded', function () {
+  const audio = document.getElementById('bgm');
+  const btn = document.getElementById('musicBtn');
+
+  if (!audio || !btn) return;
+
+  let started = false;
+
+  function updateButton() {
+    btn.textContent = audio.paused ? '🎵' : '🎵';
+    btn.style.opacity = audio.paused ? '0.75' : '1';
+  }
+
+  async function tryPlay() {
+    try {
+      await audio.play();
+      started = true;
+      updateButton();
+    } catch (e) {
+      console.log('재생 실패:', e);
+    }
+  }
+
+  function firstTouchPlay() {
+    if (!started) {
+      tryPlay();
+    }
+  }
+
+  window.addEventListener('touchstart', firstTouchPlay, { passive: true });
+  window.addEventListener('click', firstTouchPlay);
+
+  btn.addEventListener('click', async function (e) {
+    e.stopPropagation();
+
+    try {
+      if (audio.paused) {
+        await audio.play();
+        started = true;
+      } else {
+        audio.pause();
+      }
+      updateButton();
+    } catch (e) {
+      console.log('버튼 재생 실패:', e);
+    }
+  });
+
+  audio.addEventListener('play', updateButton);
+  audio.addEventListener('pause', updateButton);
+
+  updateButton();
+});
 </script>
 </body>
 </html>
