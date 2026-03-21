@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+  
     * { box-sizing: border-box; }
 
     :root {
@@ -1658,10 +1659,43 @@
   position: relative !important;
   z-index: 99999 !important;
 }
+    /* 🎧 아이폰 감성 음악 버튼 */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.music-btn:active {
+  transform: scale(0.9);
+}
   </style>
 </head>
 <body>
+<!-- 🎧 음악 버튼 -->
+<div class="music-btn" id="musicBtn">🔊</div>
 
+<!-- 🎧 오디오 -->
+<audio id="bgm" src="music.mp3" loop></audio>
+  
   <section class="hero hero-ready">
     <div class="hero-bg"></div>
     <div class="hero-vignette"></div>
@@ -2725,6 +2759,36 @@ if (lightboxNext) {
   </span>
   <span class="music-toggle-text">BGM ON</span>
 </button>
- 
+ <script>
+const audio = document.getElementById('bgm');
+const btn = document.getElementById('musicBtn');
+
+let isPlaying = false;
+
+// 🎧 버튼 클릭 시 토글
+btn.addEventListener('click', () => {
+  if (isPlaying) {
+    audio.pause();
+    btn.innerText = '🔇';
+  } else {
+    audio.play().catch(() => {});
+    btn.innerText = '🔊';
+  }
+  isPlaying = !isPlaying;
+});
+
+// 🎧 첫 터치 자동재생
+function playMusicOnce() {
+  audio.play().catch(() => {});
+  btn.innerText = '🔊';
+  isPlaying = true;
+
+  document.removeEventListener('click', playMusicOnce);
+  document.removeEventListener('touchstart', playMusicOnce);
+}
+
+document.addEventListener('click', playMusicOnce);
+document.addEventListener('touchstart', playMusicOnce);
+</script>
 </body>
 </html>
