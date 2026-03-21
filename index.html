@@ -2312,6 +2312,58 @@ if (musicToggle && bgm) {
     document.removeEventListener('touchstart', firstTouchAction);
   });
 }
+    const bgm = document.getElementById('bgm');
+const musicToggle = document.getElementById('musicToggle');
+const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
+
+if (bgm) {
+  bgm.volume = 0.24;
+}
+
+function setMusicUI(isPlaying) {
+  if (!musicToggle || !musicToggleText) return;
+  musicToggle.classList.toggle('is-playing', isPlaying);
+  musicToggle.setAttribute('aria-pressed', String(isPlaying));
+  musicToggle.setAttribute('aria-label', isPlaying ? '배경음악 끄기' : '배경음악 켜기');
+  musicToggleText.textContent = isPlaying ? 'BGM OFF' : 'BGM ON';
+}
+
+function playBgm() {
+  if (!bgm) return;
+  bgm.play()
+    .then(() => setMusicUI(true))
+    .catch(() => setMusicUI(false));
+}
+
+function pauseBgm() {
+  if (!bgm) return;
+  bgm.pause();
+  setMusicUI(false);
+}
+
+if (musicToggle && bgm) {
+  musicToggle.addEventListener('click', function () {
+    if (bgm.paused) {
+      playBgm();
+    } else {
+      pauseBgm();
+    }
+  });
+
+  window.addEventListener('load', function () {
+    playBgm();
+  });
+
+  document.addEventListener('click', function firstUserAction() {
+    playBgm();
+    document.removeEventListener('click', firstUserAction);
+  });
+
+  document.addEventListener('touchstart', function firstTouchAction() {
+    playBgm();
+    document.removeEventListener('touchstart', firstTouchAction);
+  });
+}
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -2720,6 +2772,20 @@ if (lightboxNext) {
   }
 });
   </script>
+  <audio id="bgm" loop preload="auto" playsinline controls>
+  <source src="love-story.mp3" type="audio/mpeg" />
+</audio>
+
+<button type="button" class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="배경음악 켜기">
+  <span class="music-toggle-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M10 17.5V6.5L18 5V16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="8" cy="18" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="16" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+    </svg>
+  </span>
+  <span class="music-toggle-text">BGM ON</span>
+</button>
   <audio id="bgm" loop preload="auto" playsinline controls>
   <source src="love-story.mp3" type="audio/mpeg" />
 </audio>
