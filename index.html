@@ -1452,62 +1452,132 @@
 .lightbox-nav:active {
   transform: translateY(-50%) scale(0.92);
 }
-    .contact-parents-section {
-  padding: 18px 20px 8px;
+.family-contact-section {
+  padding-top: 10px;
 }
 
-.contact-parents-box {
-  max-width: 560px;
-  margin: 0 auto;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 16px;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(6px);
-  overflow: hidden;
+.family-contact-panel {
+  margin-top: 0;
 }
 
-.contact-parents-summary {
-  list-style: none;
-  cursor: pointer;
-  text-align: center;
-  padding: 18px;
-  font-size: 1.4rem;
-  color: #5b5b5b;
+.family-contact-toggle {
+  transition: transform 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease;
 }
 
-.contact-parents-summary::-webkit-details-marker {
-  display: none;
+.family-contact-toggle:active {
+  transform: scale(0.985);
 }
 
-.contact-parents-list {
-  padding: 10px 16px 14px;
+.family-contact-panel .account-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.contact-parent-item {
+.family-contact-panel.open .account-content {
+  grid-template-rows: 1fr;
+}
+
+.family-contact-panel .account-content > * {
+  min-height: 0;
+}
+
+.family-contact-box {
+  padding: 4px 2px 2px;
+}
+
+.family-contact-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 2px;
+  border-bottom: 1px solid rgba(60, 40, 30, 0.08);
 }
 
-.contact-parent-item:last-child {
+.family-contact-item:last-child {
   border-bottom: none;
+  padding-bottom: 6px;
 }
 
-.contact-parent-text .side {
-  font-size: 0.9rem;
-  color: #888;
+.family-contact-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.contact-parent-text strong {
-  font-size: 1.05rem;
+.family-contact-side {
+  font-size: 0.92rem;
+  color: rgba(70, 55, 50, 0.62);
+  letter-spacing: -0.02em;
 }
 
-.contact-parent-actions a {
-  margin-left: 8px;
-  font-size: 1.2rem;
+.family-contact-text strong {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #2f2725;
+  letter-spacing: -0.02em;
+}
+
+.family-contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.family-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
+  color: #8d6f6a;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(141, 111, 106, 0.12);
+  box-shadow: 0 4px 10px rgba(60, 40, 30, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.family-action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.family-action-btn:active {
+  transform: scale(0.94);
+}
+
+.family-contact-panel.open .account-arrow svg {
+  transform: rotate(180deg);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.family-contact-panel .account-arrow svg {
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 480px) {
+  .family-contact-item {
+    padding: 14px 2px;
+  }
+
+  .family-contact-text strong {
+    font-size: 1.02rem;
+  }
+
+  .family-action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .family-action-btn svg {
+    width: 17px;
+    height: 17px;
+  }
 }
   </style>
 </head>
@@ -1611,6 +1681,91 @@
 </div>
     </div>
   </section>
+ <section class="section family-contact-section">
+  <div class="account-panel family-contact-panel">
+    <button type="button" class="account-toggle family-contact-toggle" aria-expanded="false">
+      <div class="account-toggle-left">
+        <div class="account-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M7 4.75C7 4.34 7.34 4 7.75 4H16.25C16.66 4 17 4.34 17 4.75V19.25C17 19.66 16.66 20 16.25 20H7.75C7.34 20 7 19.66 7 19.25V4.75Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 6.5H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="17.2" r="0.9" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <div class="account-label">혼주에게 연락하기</div>
+          <div class="account-sub">탭해서 연락처 보기</div>
+        </div>
+      </div>
+      <div class="account-arrow" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </button>
+
+    <div class="account-content family-contact-content">
+      <div class="family-contact-box">
+        <div class="family-contact-item">
+          <div class="family-contact-text">
+            <span class="family-contact-side">신랑측 어머니</span>
+            <strong>조영자</strong>
+          </div>
+          <div class="family-contact-actions">
+            <a class="family-action-btn" href="tel:00000000000" aria-label="조영자에게 전화하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.1 14.81 16.46 14.94C17.6 15.32 18.83 15.53 20.11 15.53C20.6 15.53 21 15.93 21 16.42V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.59C8.08 3 8.47 3.4 8.47 3.89C8.47 5.17 8.68 6.4 9.06 7.54C9.18 7.9 9.1 8.3 8.82 8.59L6.62 10.79Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="family-action-btn" href="sms:00000000000" aria-label="조영자에게 문자하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 18.5C4.79 18.5 3 16.71 3 14.5V8.5C3 6.29 4.79 4.5 7 4.5H17C19.21 4.5 21 6.29 21 8.5V14.5C21 16.71 19.21 18.5 17 18.5H11.5L7.5 21V18.5H7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="family-contact-item">
+          <div class="family-contact-text">
+            <span class="family-contact-side">신부측 아버지</span>
+            <strong>유영창</strong>
+          </div>
+          <div class="family-contact-actions">
+            <a class="family-action-btn" href="tel:01042372408" aria-label="유영창에게 전화하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.1 14.81 16.46 14.94C17.6 15.32 18.83 15.53 20.11 15.53C20.6 15.53 21 15.93 21 16.42V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.59C8.08 3 8.47 3.4 8.47 3.89C8.47 5.17 8.68 6.4 9.06 7.54C9.18 7.9 9.1 8.3 8.82 8.59L6.62 10.79Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="family-action-btn" href="sms:01042372408" aria-label="유영창에게 문자하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 18.5C4.79 18.5 3 16.71 3 14.5V8.5C3 6.29 4.79 4.5 7 4.5H17C19.21 4.5 21 6.29 21 8.5V14.5C21 16.71 19.21 18.5 17 18.5H11.5L7.5 21V18.5H7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="family-contact-item">
+          <div class="family-contact-text">
+            <span class="family-contact-side">신부측 어머니</span>
+            <strong>황길자</strong>
+          </div>
+          <div class="family-contact-actions">
+            <a class="family-action-btn" href="tel:01044642408" aria-label="황길자에게 전화하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.1 14.81 16.46 14.94C17.6 15.32 18.83 15.53 20.11 15.53C20.6 15.53 21 15.93 21 16.42V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.59C8.08 3 8.47 3.4 8.47 3.89C8.47 5.17 8.68 6.4 9.06 7.54C9.18 7.9 9.1 8.3 8.82 8.59L6.62 10.79Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="family-action-btn" href="sms:01044642408" aria-label="황길자에게 문자하기">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 18.5C4.79 18.5 3 16.71 3 14.5V8.5C3 6.29 4.79 4.5 7 4.5H17C19.21 4.5 21 6.29 21 8.5V14.5C21 16.71 19.21 18.5 17 18.5H11.5L7.5 21V18.5H7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   <section class="section">
     <div class="card calendar-card">
@@ -1791,46 +1946,7 @@
         </div>
 
         <div class="account-panel">
-          <section class="contact-parents-section">
-  <details class="contact-parents-box">
-    <summary class="contact-parents-summary">혼주에게 연락하기</summary>
-
-    <div class="contact-parents-list">
-      <div class="contact-parent-item">
-        <div class="contact-parent-text">
-          <span class="side">신랑측 어머니</span>
-          <strong>조영자</strong>
-        </div>
-        <div class="contact-parent-actions">
-          <a href="tel:00000000000">📞</a>
-          <a href="sms:00000000000">💬</a>
-        </div>
-      </div>
-
-      <div class="contact-parent-item">
-        <div class="contact-parent-text">
-          <span class="side">신부측 아버지</span>
-          <strong>유영창</strong>
-        </div>
-        <div class="contact-parent-actions">
-          <a href="tel:01042372408">📞</a>
-          <a href="sms:01042372408">💬</a>
-        </div>
-      </div>
-
-      <div class="contact-parent-item">
-        <div class="contact-parent-text">
-          <span class="side">신부측 어머니</span>
-          <strong>황길자</strong>
-        </div>
-        <div class="contact-parent-actions">
-          <a href="tel:01044642408">📞</a>
-          <a href="sms:01044642408">💬</a>
-        </div>
-      </div>
-    </div>
-  </details>
-</section>
+          
           <button type="button" class="account-toggle" aria-expanded="false">
             <div class="account-toggle-left">
               <div class="account-icon" aria-hidden="true">
@@ -2003,7 +2119,17 @@
         copyText(window.location.href, "링크가 복사되었어요.");
       });
     }
+document.querySelectorAll('.account-toggle').forEach((button) => {
+  button.addEventListener('click', () => {
+    const panel = button.closest('.account-panel');
+    panel.classList.toggle('open');
 
+    button.setAttribute(
+      'aria-expanded',
+      panel.classList.contains('open')
+    );
+  });
+});
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
