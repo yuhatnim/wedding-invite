@@ -1776,45 +1776,49 @@
     const copyLinkBtn = document.getElementById("copyLinkBtn");
     const kakaoShareBtn = document.getElementById("kakaoShareBtn");
     const smartRouteBtn = document.getElementById("smartRouteBtn");
+    
     const lightbox = document.getElementById("lightbox");
-const lightboxSlider = document.getElementById("lightboxSlider");
-const lightboxClose = document.getElementById("lightboxClose");
-const lightboxPrev = document.getElementById("lightboxPrev");
-const lightboxNext = document.getElementById("lightboxNext");
+    const lightboxSlider = document.getElementById("lightboxSlider");
+    const lightboxClose = document.getElementById("lightboxClose");
+    const lightboxPrev = document.getElementById("lightboxPrev");
+    const lightboxNext = document.getElementById("lightboxNext");
+    
     const accountPanels = document.querySelectorAll(".account-panel");
     const galleryItems = document.querySelectorAll(".gallery-slide");
     const galleryScroll = document.getElementById("galleryScroll");
     const galleryDots = document.getElementById("galleryDots");
 
     function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 1800);
-    }
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1800);
+  }
 
     async function copyText(text, successMessage = "복사되었어요.") {
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(text);
-        } else {
-          const textarea = document.createElement("textarea");
-          textarea.value = text;
-          textarea.style.position = "fixed";
-          textarea.style.left = "-9999px";
-          document.body.appendChild(textarea);
-          textarea.focus();
-          textarea.select();
-          document.execCommand("copy");
-          textarea.remove();
-        }
-        showToast(successMessage);
-      } catch (error) {
-        showToast("복사에 실패했어요.");
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
       }
+      showToast(successMessage);
+    } catch (error) {
+      showToast("복사에 실패했어요.");
     }
+  }
 
     function openInvitation() {
       if (invitation) {
@@ -1845,48 +1849,44 @@ const lightboxNext = document.getElementById("lightboxNext");
     }
 
     function openSmartRoute() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+    const isAndroid = /Android/i.test(ua);
 
-  const isIOS = /iPhone|iPad|iPod/i.test(ua);
-  const isAndroid = /Android/i.test(ua);
+    const placeName = encodeURIComponent("웨스턴팰리스웨딩홀");
+    const kakaoWebUrl = "https://map.kakao.com/link/search/웨스턴팰리스웨딩홀";
+    const tmapUrl = `tmap://search?name=${placeName}`;
+    const kakaoMapAppUrl = `kakaomap://search?q=${placeName}`;
 
-  const placeName = encodeURIComponent("웨스턴팰리스웨딩홀");
-  const kakaoWebUrl = "https://map.kakao.com/link/search/웨스턴팰리스웨딩홀";
-  const tmapUrl = `tmap://search?name=${placeName}`;
-  const kakaoMapAppUrl = `kakaomap://search?q=${placeName}`;
+ if (isIOS) {
+      const fallbackTimer = setTimeout(() => {
+        window.location.href = kakaoWebUrl;
+      }, 900);
 
-  if (isIOS) {
-    const fallbackTimer = setTimeout(() => {
-      window.location.href = kakaoWebUrl;
-    }, 900);
+      window.location.href = kakaoMapAppUrl;
 
-    window.location.href = kakaoMapAppUrl;
+      window.addEventListener(
+        "pagehide",
+        () => clearTimeout(fallbackTimer),
+        { once: true }
+      );
+      return;
+    }
 
-    window.addEventListener(
-      "pagehide",
-      () => clearTimeout(fallbackTimer),
-      { once: true }
-    );
+    if (isAndroid) {
+      const fallbackTimer = setTimeout(() => {
+        window.location.href = kakaoWebUrl;
+      }, 900);
 
-    return;
-  }
+      window.location.href = tmapUrl;
 
-  if (isAndroid) {
-    const fallbackTimer = setTimeout(() => {
-      window.location.href = kakaoWebUrl;
-    }, 900);
-
-    window.location.href = tmapUrl;
-
-    window.addEventListener(
-      "pagehide",
-      () => clearTimeout(fallbackTimer),
-      { once: true }
-    );
-
-    return;
-  }
-
+      window.addEventListener(
+        "pagehide",
+        () => clearTimeout(fallbackTimer),
+        { once: true }
+      );
+      return;
+    }
   window.open(kakaoWebUrl, "_blank", "noopener");
 }
     if (smartRouteBtn) {
@@ -2006,38 +2006,6 @@ function openLightbox(index) {
     });
   });
 }
-let currentLightboxIndex = 0;
-
-function openLightbox(index) {
-  if (!lightbox || !lightboxSlider) return;
-
-  lightboxSlider.innerHTML = "";
-
-  galleryItems.forEach((img) => {
-    const slide = document.createElement("div");
-    slide.className = "lightbox-slide";
-
-    const image = document.createElement("img");
-    image.src = img.src;
-    image.alt = img.alt || "확대 이미지";
-
-    slide.appendChild(image);
-    lightboxSlider.appendChild(slide);
-  });
-
-  currentLightboxIndex = index;
-
-  lightbox.classList.add("open");
-  lightbox.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-
-  requestAnimationFrame(() => {
-    lightboxSlider.scrollTo({
-      left: currentLightboxIndex * lightboxSlider.clientWidth,
-      behavior: "auto"
-    });
-  });
-}
 
 function closeLightbox() {
   if (!lightbox || !lightboxSlider) return;
@@ -2046,13 +2014,7 @@ function closeLightbox() {
   lightboxSlider.innerHTML = "";
   document.body.style.overflow = "";
 }
-function closeLightbox() {
-  if (!lightbox || !lightboxSlider) return;
-  lightbox.classList.remove("open");
-  lightbox.setAttribute("aria-hidden", "true");
-  lightboxSlider.innerHTML = "";
-  document.body.style.overflow = "";
-}
+
     
 galleryItems.forEach((img, index) => {
   img.addEventListener("click", () => {
