@@ -23,9 +23,19 @@
   margin-top: 8px;
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.78);
   text-align: center;
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(0);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.music-guide.hide {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
 }
   
     * { box-sizing: border-box; }
@@ -1678,7 +1688,7 @@
     <div class="hero-bottom" id="heroBottom" role="button" tabindex="0" aria-label="초대장 열기">
       <div class="swipe-indicator"></div>
       <div class="scroll-hint">위로 올려 초대장 열기</div>
-      <div class="music-guide">🎧 화면을 터치하시면 음악이 재생됩니다</div>
+      <div class="music-guide" id="musicGuide">🎧 화면을 터치하시면 음악이 재생됩니다</div>
     </div>
   </section>
 
@@ -2856,15 +2866,24 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
   const audio = document.getElementById('bgm');
   const btn = document.getElementById('musicBtn');
+  const guide = document.getElementById('musicGuide');
 
   if (!audio || !btn) return;
 
   let triedAutoPlay = false;
 
   function updateBtn() {
-    btn.textContent = '🎵';
-    btn.style.opacity = audio.paused ? '0.7' : '1';
+  btn.textContent = '🎵';
+  btn.style.opacity = audio.paused ? '0.7' : '1';
+
+  if (guide) {
+    if (audio.paused) {
+      guide.classList.remove('hide');
+    } else {
+      guide.classList.add('hide');
+    }
   }
+}
 
   async function playAudio() {
     try {
