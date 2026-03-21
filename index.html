@@ -1579,6 +1579,66 @@
     height: 17px;
   }
 }
+    .music-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(120, 92, 88, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #7f6661;
+  box-shadow: 0 10px 28px rgba(50, 30, 20, 0.10);
+  font-size: 0.92rem;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.music-toggle:active {
+  transform: scale(0.97);
+}
+
+.music-toggle.is-playing {
+  background: rgba(255, 248, 248, 0.92);
+  box-shadow: 0 12px 30px rgba(50, 30, 20, 0.14);
+}
+
+.music-toggle-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-toggle-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.music-toggle-text {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .music-toggle {
+    right: 14px;
+    bottom: 14px;
+    height: 42px;
+    padding: 0 12px;
+    font-size: 0.88rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -2140,6 +2200,58 @@ document.querySelectorAll('.account-toggle').forEach((button) => {
     button.setAttribute('aria-expanded', String(!isOpen));
   });
 });
+    const bgm = document.getElementById('bgm');
+const musicToggle = document.getElementById('musicToggle');
+const musicToggleText = musicToggle?.querySelector('.music-toggle-text');
+
+if (bgm) {
+  bgm.volume = 0.24;
+}
+
+function setMusicUI(isPlaying) {
+  if (!musicToggle || !musicToggleText) return;
+  musicToggle.classList.toggle('is-playing', isPlaying);
+  musicToggle.setAttribute('aria-pressed', String(isPlaying));
+  musicToggle.setAttribute('aria-label', isPlaying ? '배경음악 끄기' : '배경음악 켜기');
+  musicToggleText.textContent = isPlaying ? 'BGM OFF' : 'BGM ON';
+}
+
+async function playBgm() {
+  if (!bgm) return;
+  try {
+    await bgm.play();
+    setMusicUI(true);
+  } catch (error) {
+    setMusicUI(false);
+  }
+}
+
+function pauseBgm() {
+  if (!bgm) return;
+  bgm.pause();
+  setMusicUI(false);
+}
+
+if (musicToggle && bgm) {
+  musicToggle.addEventListener('click', async () => {
+    if (bgm.paused) {
+      await playBgm();
+    } else {
+      pauseBgm();
+    }
+  });
+
+  const tryAutoplayOnce = async () => {
+    await playBgm();
+  };
+
+  window.addEventListener('load', async () => {
+    await playBgm();
+  });
+
+  document.addEventListener('click', tryAutoplayOnce, { once: true });
+  document.addEventListener('touchstart', tryAutoplayOnce, { once: true });
+}
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -2548,5 +2660,19 @@ if (lightboxNext) {
   }
 });
   </script>
+  <audio id="bgm" loop preload="auto" playsinline>
+  <source src="love-story.mp3" type="audio/mpeg" />
+</audio>
+
+<button type="button" class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="배경음악 켜기">
+  <span class="music-toggle-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M10 17.5V6.5L18 5V16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="8" cy="18" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="16" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+    </svg>
+  </span>
+  <span class="music-toggle-text">BGM ON</span>
+</button>
 </body>
 </html>
