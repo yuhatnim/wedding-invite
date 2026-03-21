@@ -2202,7 +2202,7 @@ document.querySelectorAll('.account-toggle').forEach((button) => {
 });
     const bgm = document.getElementById('bgm');
 const musicToggle = document.getElementById('musicToggle');
-const musicToggleText = musicToggle?.querySelector('.music-toggle-text');
+const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
 
 if (bgm) {
   bgm.volume = 0.24;
@@ -2216,14 +2216,15 @@ function setMusicUI(isPlaying) {
   musicToggleText.textContent = isPlaying ? 'BGM OFF' : 'BGM ON';
 }
 
-async function playBgm() {
+function playBgm() {
   if (!bgm) return;
-  try {
-    await bgm.play();
-    setMusicUI(true);
-  } catch (error) {
-    setMusicUI(false);
-  }
+  bgm.play()
+    .then(() => {
+      setMusicUI(true);
+    })
+    .catch(() => {
+      setMusicUI(false);
+    });
 }
 
 function pauseBgm() {
@@ -2233,24 +2234,27 @@ function pauseBgm() {
 }
 
 if (musicToggle && bgm) {
-  musicToggle.addEventListener('click', async () => {
+  musicToggle.addEventListener('click', function () {
     if (bgm.paused) {
-      await playBgm();
+      playBgm();
     } else {
       pauseBgm();
     }
   });
 
-  const tryAutoplayOnce = async () => {
-    await playBgm();
-  };
-
-  window.addEventListener('load', async () => {
-    await playBgm();
+  window.addEventListener('load', function () {
+    playBgm();
   });
 
-  document.addEventListener('click', tryAutoplayOnce, { once: true });
-  document.addEventListener('touchstart', tryAutoplayOnce, { once: true });
+  document.addEventListener('click', function firstUserAction() {
+    playBgm();
+    document.removeEventListener('click', firstUserAction);
+  });
+
+  document.addEventListener('touchstart', function firstTouchAction() {
+    playBgm();
+    document.removeEventListener('touchstart', firstTouchAction);
+  });
 }
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -2660,7 +2664,7 @@ if (lightboxNext) {
   }
 });
   </script>
-  <audio id="bgm" loop preload="auto" playsinline>
+  <audio id="bgm" loop preload="auto" playsinline controls>
   <source src="love-story.mp3" type="audio/mpeg" />
 </audio>
 
