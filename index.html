@@ -1639,9 +1639,31 @@
     font-size: 0.88rem;
   }
 }
+    #bgm {
+  display: block !important;
+  width: calc(100% - 32px);
+  margin: 16px auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 9999;
+}
+    audio,
+#bgm {
+  display: block !important;
+  width: calc(100% - 32px) !important;
+  margin: 16px auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 99999 !important;
+}
   </style>
 </head>
 <body>
+  <audio id="bgm" loop preload="auto" playsinline controls style="display:block; width:calc(100% - 32px); margin:16px auto; position:relative; z-index:99999;">
+  <source src="love-story.mp3" type="audio/mpeg" />
+</audio>
   <section class="hero hero-ready">
     <div class="hero-bg"></div>
     <div class="hero-vignette"></div>
@@ -2776,19 +2798,6 @@ if (lightboxNext) {
   <source src="love-story.mp3" type="audio/mpeg" />
 </audio>
 
-<button type="button" class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="배경음악 켜기">
-  <span class="music-toggle-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none">
-      <path d="M10 17.5V6.5L18 5V16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="8" cy="18" r="2.5" stroke="currentColor" stroke-width="1.6"/>
-      <circle cx="16" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.6"/>
-    </svg>
-  </span>
-  <span class="music-toggle-text">BGM ON</span>
-</button>
-  <audio id="bgm" loop preload="auto" playsinline controls>
-  <source src="love-story.mp3" type="audio/mpeg" />
-</audio>
 
 <button type="button" class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="배경음악 켜기">
   <span class="music-toggle-icon" aria-hidden="true">
