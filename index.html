@@ -1823,6 +1823,34 @@
     opacity: 0.85;
     font-family: "Cormorant Garamond", serif;
   }
+    .footer.reveal-footer {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition:
+    opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer.reveal-footer.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.footer-verse {
+  line-height: 2.05;
+}
+
+.bible-caption {
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #b0a7a5;
+  opacity: 0.85;
+  font-family: "Cormorant Garamond", serif;
+}
   </style>
 </head>
 <body>
@@ -2270,11 +2298,15 @@
     </div>
   </section>
 
- <div class="footer" style="font-family: 'Cormorant Garamond', serif; letter-spacing: 0.04em;">
-  하나님이 세상을 이처럼 사랑하사<br>
-  독생자를 주셨으니<br>
-  이는 그를 믿는 자마다 멸망하지 않고<br>
-  영생을 얻게 하려 하심이라
+ <div class="footer reveal-footer">
+  <div class="footer-verse">
+    하나님이 세상을 이처럼 사랑하사<br>
+    독생자를 주셨으니<br>
+    이는 그를 믿는 자마다 멸망하지 않고<br>
+    영생을 얻게 하려 하심이라
+  </div>
+
+  <div class="bible-caption">요한복음 3:16</div>
 </div>
 
   <div class="toast" id="toast"></div>
@@ -2937,6 +2969,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   updateMusicUI();
 });
+</script>
+  <script>
+  const revealFooter = document.querySelector('.reveal-footer');
+
+  if (revealFooter) {
+    const footerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            revealFooter.classList.add('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+
+    footerObserver.observe(revealFooter);
+  }
 </script>
 </body>
 </html>
