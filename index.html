@@ -1714,6 +1714,26 @@
     animation: none;
   }
 }
+    /* 💍 결혼 날짜 칸 높이 고정 (핵심) */
+.calendar-wedding-wrap {
+  position: relative;
+  height: 34px; /* 다른 날짜와 동일하게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🕰 시간은 아래로 따로 떨어뜨리기 */
+.calendar-wedding-time {
+  position: absolute;
+  top: 100%;
+  margin-top: 6px; /* 아래로 더 내리고 싶으면 이 값 키우기 */
+  font-size: 9px;
+  color: #8a8382;
+  letter-spacing: 0.08em;
+}
+    opacity: 0.9;
+font-weight: 500;
   </style>
 </head>
 <body>
