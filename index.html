@@ -1639,7 +1639,8 @@
   transform: scale(0.9);
 }
     
-#musicToggle {
+#musicToggle,
+.music-toggle {
   display: none !important;
 }
 
@@ -2692,6 +2693,66 @@ if (lightboxNext) {
   updateBtn();
 })();
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const audio = document.getElementById('bgm');
+  const topBtn = document.getElementById('musicBtn');
+  const guide = document.getElementById('musicGuide');
+  const bottomBtn = document.getElementById('musicToggle');
 
+  if (bottomBtn) bottomBtn.remove();
+  document.querySelectorAll('.music-toggle').forEach(el => el.remove());
+
+  if (!audio || !topBtn) return;
+
+  audio.volume = 0.24;
+  audio.muted = false;
+
+  function updateMusicUI() {
+    topBtn.style.opacity = audio.paused ? '0.72' : '1';
+    if (guide) {
+      guide.classList.toggle('hide', !audio.paused);
+    }
+  }
+
+  async function playMusic() {
+    try {
+      await audio.play();
+      updateMusicUI();
+    } catch (e) {
+      console.log('audio play blocked', e);
+    }
+  }
+
+  function pauseMusic() {
+    audio.pause();
+    updateMusicUI();
+  }
+
+  topBtn.addEventListener('click', async function (e) {
+    e.stopPropagation();
+
+    if (audio.paused) {
+      await playMusic();
+    } else {
+      pauseMusic();
+    }
+  });
+
+  function firstTouchPlay() {
+    playMusic();
+    document.removeEventListener('click', firstTouchPlay);
+    document.removeEventListener('touchstart', firstTouchPlay);
+  }
+
+  document.addEventListener('click', firstTouchPlay, { passive: true });
+  document.addEventListener('touchstart', firstTouchPlay, { passive: true });
+
+  audio.addEventListener('play', updateMusicUI);
+  audio.addEventListener('pause', updateMusicUI);
+
+  updateMusicUI();
+});
+</script>
 </body>
 </html>
