@@ -2182,31 +2182,15 @@
         copyText(window.location.href, "링크가 복사되었어요.");
       });
     }
-document.querySelectorAll('.account-toggle').forEach((button) => {
-  button.addEventListener('click', () => {
-    const panel = button.closest('.account-panel');
-    panel.classList.toggle('open');
 
-    button.setAttribute(
-      'aria-expanded',
-      panel.classList.contains('open')
-    );
-  });
-});
-    document.querySelectorAll('.account-toggle').forEach((button) => {
-  button.addEventListener('click', () => {
-    const panel = button.closest('.account-panel');
-    if (!panel) return;
-
-    const isOpen = panel.classList.contains('open');
-    panel.classList.toggle('open', !isOpen);
-    button.setAttribute('aria-expanded', String(!isOpen));
-  });
-});
+    
     const bgm = document.getElementById('bgm');
-    const btn = document.getElementById('musicBtn');
-    audio.muted = false;
-audio.volume = 1;
+const btn = document.getElementById('musicBtn');
+
+if (bgm) {
+  bgm.muted = false;
+  bgm.volume = 0.24;
+}
 const musicToggle = document.getElementById('musicToggle');
 const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
 
@@ -2695,13 +2679,10 @@ if (lightboxNext) {
     });
   }
 });
-  </script>
-  <audio id="bgm" loop preload="auto" playsinline controls>
-  <source src="love-story.mp3" type="audio/mpeg" />
-</audio>
 
 
 
+ 
 <button type="button" class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="배경음악 켜기">
   <span class="music-toggle-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none">
@@ -2712,178 +2693,36 @@ if (lightboxNext) {
   </span>
   <span class="music-toggle-text">BGM ON</span>
 </button>
- <script>
-const audio = document.getElementById('bgm');
-const btn = document.getElementById('musicBtn');
 
-let isPlaying = false;
-
-// 🎵 버튼 클릭 (토글)
-btn.addEventListener('click', (e) => {
-  e.stopPropagation(); // 중요!!
-
-  if (isPlaying) {
-    audio.pause();
-    btn.innerText = '🎵';
-  } else {
-    audio.play().catch(() => {});
-    btn.innerText = '🎵';
-  }
-  isPlaying = !isPlaying;
-});
-
-// 🎵 첫 터치 자동재생 (핵심 수정버전)
-function playMusicOnce() {
-  if (!isPlaying) {
-    audio.play().then(() => {
-      isPlaying = true;
-      btn.innerText = '🎵';
-    }).catch(() => {});
-  }
-
-  document.removeEventListener('touchstart', playMusicOnce);
-  document.removeEventListener('click', playMusicOnce);
-}
-
-// 📱 모바일 우선
-document.addEventListener('touchstart', playMusicOnce, { once: true });
-
-// 💻 PC 대비
-document.addEventListener('click', playMusicOnce, { once: true });
-</script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const audio = document.getElementById('bgm');
-  const btn = document.getElementById('musicBtn');
-
-  if (!audio || !btn) return;
-
-  let started = false;
-
-  function updateButton() {
-    btn.textContent = audio.paused ? '🎵' : '🎵';
-    btn.style.opacity = audio.paused ? '0.75' : '1';
-  }
-
-  async function tryPlay() {
-    try {
-      await audio.play();
-      started = true;
-      updateButton();
-    } catch (e) {
-      console.log('재생 실패:', e);
-    }
-  }
-
-  function firstTouchPlay() {
-    if (!started) {
-      tryPlay();
-    }
-  }
-
-  // 아무 곳이나 첫 터치 시 재생
-  window.addEventListener('touchstart', firstTouchPlay, { passive: true });
-  window.addEventListener('click', firstTouchPlay);
-
-  // 버튼 눌렀을 때 토글
-  btn.addEventListener('click', async function (e) {
-    e.stopPropagation();
-
-    try {
-      if (audio.paused) {
-        await audio.play();
-        started = true;
-      } else {
-        audio.pause();
-      }
-      updateButton();
-    } catch (e) {
-      console.log('버튼 재생 실패:', e);
-    }
-  });
-
-  audio.addEventListener('play', updateButton);
-  audio.addEventListener('pause', updateButton);
-
-  updateButton();
-});
- 
-document.addEventListener('DOMContentLoaded', function () {
-  const audio = document.getElementById('bgm');
-  const btn = document.getElementById('musicBtn');
-
-  if (!audio || !btn) return;
-
-  let started = false;
-
-  function updateButton() {
-    btn.textContent = audio.paused ? '🎵' : '🎵';
-    btn.style.opacity = audio.paused ? '0.75' : '1';
-  }
-
-  async function tryPlay() {
-    try {
-      await audio.play();
-      started = true;
-      updateButton();
-    } catch (e) {
-      console.log('재생 실패:', e);
-    }
-  }
-
-  function firstTouchPlay() {
-    if (!started) {
-      tryPlay();
-    }
-  }
-
-  window.addEventListener('touchstart', firstTouchPlay, { passive: true });
-  window.addEventListener('click', firstTouchPlay);
-
-  btn.addEventListener('click', async function (e) {
-    e.stopPropagation();
-
-    try {
-      if (audio.paused) {
-        await audio.play();
-        started = true;
-      } else {
-        audio.pause();
-      }
-      updateButton();
-    } catch (e) {
-      console.log('버튼 재생 실패:', e);
-    }
-  });
-
-  audio.addEventListener('play', updateButton);
-  audio.addEventListener('pause', updateButton);
-
-  updateButton();
-});
-</script>
-  <script>
 (function () {
   const audio = document.getElementById('bgm');
   const btn = document.getElementById('musicBtn');
   const guide = document.getElementById('musicGuide');
+  const musicToggle = document.getElementById('musicToggle');
+  const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
 
   if (!audio || !btn) return;
 
-  let triedAutoPlay = false;
+  audio.muted = false;
+  audio.volume = 0.24;
 
   function updateBtn() {
-  btn.textContent = '🎵';
-  btn.style.opacity = audio.paused ? '0.7' : '1';
+    btn.textContent = '🎵';
+    btn.style.opacity = audio.paused ? '0.7' : '1';
 
-  if (guide) {
-    if (audio.paused) {
-      guide.classList.remove('hide');
-    } else {
-      guide.classList.add('hide');
+    if (guide) {
+      guide.classList.toggle('hide', !audio.paused);
+    }
+
+    if (musicToggle && musicToggleText) {
+      const isPlaying = !audio.paused;
+      musicToggle.classList.toggle('is-playing', isPlaying);
+      musicToggle.setAttribute('aria-pressed', String(isPlaying));
+      musicToggle.setAttribute('aria-label', isPlaying ? '배경음악 끄기' : '배경음악 켜기');
+      musicToggleText.textContent = isPlaying ? 'BGM OFF' : 'BGM ON';
     }
   }
-}
 
   async function playAudio() {
     try {
@@ -2893,24 +2732,41 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function firstUserAction() {
-    if (triedAutoPlay) return;
-    triedAutoPlay = true;
     playAudio();
+    document.removeEventListener('click', firstUserAction);
+    document.removeEventListener('touchstart', firstUserAction);
   }
 
-  document.addEventListener('click', firstUserAction, { once: true });
-  document.addEventListener('touchstart', firstUserAction, { once: true });
+  document.addEventListener('click', firstUserAction, { passive: true });
+  document.addEventListener('touchstart', firstUserAction, { passive: true });
 
   btn.addEventListener('click', async function (e) {
     e.stopPropagation();
 
-    if (audio.paused) {
-      await audio.play();
-    } else {
-      audio.pause();
-    }
-    updateBtn();
+    try {
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
+      updateBtn();
+    } catch (err) {}
   });
+
+  if (musicToggle) {
+    musicToggle.addEventListener('click', async function (e) {
+      e.stopPropagation();
+
+      try {
+        if (audio.paused) {
+          await audio.play();
+        } else {
+          audio.pause();
+        }
+        updateBtn();
+      } catch (err) {}
+    });
+  }
 
   audio.addEventListener('play', updateBtn);
   audio.addEventListener('pause', updateBtn);
@@ -2918,5 +2774,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateBtn();
 })();
 </script>
+
 </body>
 </html>
