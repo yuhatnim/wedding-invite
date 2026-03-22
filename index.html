@@ -1643,7 +1643,31 @@
 .music-toggle {
   display: none !important;
 }
+/* 선택된 날짜 내부 정렬 */
+.calendar-grid .day.wedding {
+  flex-direction: column;
+  padding-top: 6px;
+}
 
+/* 숫자 */
+.calendar-grid .day.wedding .date {
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* 시간 */
+.calendar-grid .day.wedding .time {
+  font-size: 9px;
+  margin-top: 2px;
+  opacity: 0.85;
+  line-height: 1;
+}
+    .calendar-grid .day.wedding .time {
+  font-size: 9px;
+  margin-top: 2px;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
   </style>
 </head>
 <body>
@@ -1873,7 +1897,10 @@
         <div class="day">17</div>
         <div class="day">18</div>
         <div class="day">19</div>
-        <div class="day wedding">20</div>
+        <div class="day wedding">
+  <span class="date">20</span>
+  <span class="time">17:20</span>
+</div>
 
         <div class="day">21</div>
         <div class="day">22</div>
@@ -1892,7 +1919,7 @@
         <div class="empty">0</div>
       </div>
 
-      <div class="calendar-time">2026년 6월 20일 토요일 오후 5시 20분</div>
+    
     </div>
   </section>
 
