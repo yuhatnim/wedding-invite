@@ -2184,93 +2184,6 @@
     }
 
     
-    const bgm = document.getElementById('bgm');
-const btn = document.getElementById('musicBtn');
-
-if (bgm) {
-  bgm.muted = false;
-  bgm.volume = 0.24;
-}
-const musicToggle = document.getElementById('musicToggle');
-const musicToggleText = musicToggle ? musicToggle.querySelector('.music-toggle-text') : null;
-
-if (bgm) {
-  bgm.volume = 0.24;
-}
-
-function setMusicUI(isPlaying) {
-  if (!musicToggle || !musicToggleText) return;
-  musicToggle.classList.toggle('is-playing', isPlaying);
-  musicToggle.setAttribute('aria-pressed', String(isPlaying));
-  musicToggle.setAttribute('aria-label', isPlaying ? '배경음악 끄기' : '배경음악 켜기');
-  musicToggleText.textContent = isPlaying ? 'BGM OFF' : 'BGM ON';
-}
-
-function playBgm() {
-  if (!bgm) return;
-  bgm.play()
-    .then(() => {
-      setMusicUI(true);
-    })
-    .catch(() => {
-      setMusicUI(false);
-    });
-}
-
-function pauseBgm() {
-  if (!bgm) return;
-  bgm.pause();
-  setMusicUI(false);
-}
-
-if (musicToggle && bgm) {
-  musicToggle.addEventListener('click', function () {
-    if (bgm.paused) {
-      playBgm();
-    } else {
-      pauseBgm();
-    }
-  });
-
-  window.addEventListener('load', function () {
-    playBgm();
-  });
-
-  document.addEventListener('click', function firstUserAction() {
-    playBgm();
-    document.removeEventListener('click', firstUserAction);
-  });
-
-  document.addEventListener('touchstart', function firstTouchAction() {
-    playBgm();
-    document.removeEventListener('touchstart', firstTouchAction);
-  });
-}
-    // 🎧 첫 터치 시 자동재생
-
-(function () {
-  const bgm = document.getElementById('bgm');
-  if (!bgm) return;
-
-  bgm.volume = 0.24; // 볼륨 (원하면 0.2~0.3 사이 조절)
-
-  let hasPlayed = false;
-
-  function startMusicOnce() {
-    if (hasPlayed) return;
-    hasPlayed = true;
-
-    bgm.play().catch(() => {});
-
-    // 이벤트 제거 (한 번만 실행)
-    document.removeEventListener('click', startMusicOnce);
-    document.removeEventListener('touchstart', startMusicOnce);
-  }
-
-  // 👇 핵심: 첫 터치/클릭 감지
-  document.addEventListener('click', startMusicOnce);
-  document.addEventListener('touchstart', startMusicOnce);
-})();
 
     function openSmartRoute() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -2679,7 +2592,7 @@ if (lightboxNext) {
     });
   }
 });
-
+</script>
 
 
  
