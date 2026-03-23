@@ -1083,7 +1083,7 @@
   margin-top: 4px; 
 }
     .parking-title + .parking-gap {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .parking-highlight {
@@ -1388,24 +1388,54 @@
     }
 
     .lightbox-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-      transition: transform 0.25s ease, background 0.25s ease;
-    }
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .lightbox-close:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.18);
-    }
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+
+  color: rgba(255,255,255,0.92);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+  z-index: 10001;
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.lightbox-close:active {
+  transform: scale(0.94);
+  background: rgba(255,255,255,0.24);
+}
+
+.lightbox-close:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.22),
+    0 8px 24px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
 
     @keyframes iosHeroIntro {
       from { transform: scale(1.12); opacity: 0.82; }
@@ -2505,7 +2535,7 @@
   <div class="toast" id="toast"></div>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox-close" id="lightboxClose" aria-label="닫기">×</button>
+  <button class="lightbox-close" id="lightboxClose" aria-label="닫기">✕</button>
   <div class="lightbox-slider" id="lightboxSlider"></div>
   <button class="lightbox-nav left" id="lightboxPrev" aria-label="이전 사진">‹</button>
   <button class="lightbox-nav right" id="lightboxNext" aria-label="다음 사진">›</button>
@@ -2748,6 +2778,7 @@ function openLightbox(index) {
   currentLightboxIndex = index;
 
   lightbox.classList.add("open");
+  musicBtn.style.display = "none";
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 
@@ -2762,6 +2793,7 @@ function openLightbox(index) {
 function closeLightbox() {
   if (!lightbox || !lightboxSlider) return;
   lightbox.classList.remove("open");
+  musicBtn.style.display = "flex";
   lightbox.setAttribute("aria-hidden", "true");
   lightboxSlider.innerHTML = "";
   document.body.style.overflow = "";
