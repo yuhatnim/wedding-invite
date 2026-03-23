@@ -978,11 +978,29 @@
     }
 
     .transport-item.parking {
-  background: rgba(255, 248, 244, 0.95);
-  border: 1px solid rgba(255, 210, 200, 0.4);
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,248,244,0.96));
+  border: 1px solid rgba(255, 218, 208, 0.48);
+  border-radius: 24px;
   box-shadow:
-    0 10px 24px rgba(255, 180, 160, 0.08),
-    inset 0 1px 0 rgba(255,255,255,0.7);
+    0 16px 34px rgba(120, 86, 74, 0.08),
+    0 4px 10px rgba(120, 86, 74, 0.04),
+    inset 0 1px 0 rgba(255,255,255,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 16px 15px;
+}
+
+.transport-item.parking::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.42), transparent 30%),
+    radial-gradient(circle at top right, rgba(255,232,224,0.28), transparent 26%);
 }
 
     .transport-item strong {
@@ -998,6 +1016,40 @@
       line-height: 1.82;
       color: #6a6665;
     }
+    .transport-item.parking > strong {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #2a2321;
+}
+
+.transport-item.parking p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #6a625f;
+}
+
+.parking-highlight {
+  display: inline-block;
+  color: #b87474;
+  font-weight: 500;
+}
+
+.parking-title {
+  display: inline;
+  margin-top: 0;
+  font-weight: 600;
+  color: #1c1c1e;
+  letter-spacing: -0.01em;
+}
+
+.parking-gap {
+  display: block;
+  margin-top: 7px;
+}
 
     /* 🚗 중요 문장 강조 */
 .parking-highlight {
@@ -1007,11 +1059,15 @@
 
 /* 🔢 ① ② 강조 */
 .parking-title {
-  display: inline-block;
-  margin-top: 4px;
+  display: inline;   /* 👈 inline-block → inline 변경 */
+  margin-top: 0;     /* 👈 4px → 0으로 변경 */
   font-weight: 600;
   color: #1c1c1e;
   letter-spacing: -0.01em;
+}
+    .parking-gap {
+  display: block;
+  margin-top: 6px; /* 👈 간격 조절 (5~8px 추천) */
 }
 
 
@@ -2214,7 +2270,9 @@
     - 갈산역 만남의 광장으로 이동<br>
     - 갈산역 2번 출구(에스컬레이터 이용)<br>
 
-    <strong class="parking-title">② 갈산역 공영주차장(2시간 무료)</strong>
+    <strong class="parking-title parking-gap">
+  ② 갈산역 공영주차장(2시간 무료)
+</strong>
   </p>
 </div>
 </div>
