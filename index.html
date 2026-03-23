@@ -1016,6 +1016,48 @@
       line-height: 1.82;
       color: #6a6665;
     }
+    .transport-list-compact {
+  gap: 10px;
+}
+
+.transport-item.compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 20px;
+}
+
+.transport-item.compact > strong {
+  flex: 0 0 58px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2a2524;
+  letter-spacing: -0.01em;
+}
+
+.transport-item.compact > p {
+  margin: 0;
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #6a6665;
+}
+
+.transport-item.compact.parking {
+  display: block;
+  padding: 16px;
+}
+
+.transport-item.compact.parking > strong {
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.transport-item.compact.parking > p {
+  display: block;
+}
     .transport-item.parking > strong {
   display: inline-block;
   margin-bottom: 6px;
@@ -1041,6 +1083,7 @@
 .parking-title {
   display: inline;
   margin-top: 0;
+  line-height: 1.3; /* 👈 핵심 */
   font-weight: 600;
   color: #1c1c1e;
   letter-spacing: -0.01em;
@@ -2238,27 +2281,23 @@
   </div>
 </div>
 
-    <div class="transport-list">
+ <div class="transport-list transport-list-compact">
 
-  <!-- 🚇 지하철 -->
-  <div class="transport-list">
-
-  <div class="transport-item">
+  <div class="transport-item compact">
     <strong>지하철</strong>
-    <p>🚇 인천 1호선 갈산역 2번 출구 → 도보 1분</p>
+    <p>🚇 인천 1호선 갈산역 2번 출구 · 도보 1분</p>
   </div>
 
-  <div class="transport-item">
+  <div class="transport-item compact">
     <strong>버스</strong>
-    <p>🚌 90, 12, 30, 526, 555, 1400번 → 갈산역/한국지엠기술교육원 정류장 하차</p>
+    <p>🚌 90, 12, 30, 526, 555, 1400번 · 갈산역/한국지엠기술교육원 하차</p>
   </div>
 
-  <div class="transport-item parking">
+  <div class="transport-item parking compact">
     <strong>주차 안내</strong>
     <p>
       <span class="parking-highlight">
-        행사 당일 웨딩홀 앞은 혼잡할 수 있어<br>
-        하객 전용 주차장 이용을 부탁드립니다.
+        행사 당일 웨딩홀 앞은 혼잡할 수 있어 하객 전용 주차장 이용을 부탁드립니다.
       </span><br>
 
       <strong class="parking-title">① 부평 우림 라이온스밸리(3시간 무료)</strong><br>
