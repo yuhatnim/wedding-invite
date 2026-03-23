@@ -977,31 +977,9 @@
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .transport-item.parking {
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,248,244,0.96));
-  border: 1px solid rgba(255, 218, 208, 0.48);
-  border-radius: 24px;
-  box-shadow:
-    0 16px 34px rgba(120, 86, 74, 0.08),
-    0 4px 10px rgba(120, 86, 74, 0.04),
-    inset 0 1px 0 rgba(255,255,255,0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 16px 16px 15px;
-}
+  
 
-.transport-item.parking::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.42), transparent 30%),
-    radial-gradient(circle at top right, rgba(255,232,224,0.28), transparent 26%);
-}
+
 
     .transport-item strong {
       display: block;
@@ -1045,72 +1023,56 @@
   color: #6a6665;
 }
 
-.transport-item.compact.parking {
+
+
+.transport-item.parking.compact {
   display: block;
-  padding: 16px;
+  padding: 18px 18px 16px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.52);
+  box-shadow: 0 10px 24px rgba(71,46,35,0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-.transport-item.compact.parking > strong {
-  display: inline-block;
-  margin-bottom: 0px;
-}
-
-.transport-item.compact.parking > p {
+.transport-title {
   display: block;
-}
-    .transport-item.parking > strong {
-  display: inline-block;
-  margin-bottom: 6px;
-  font-size: 14px;
+  margin: 0 0 10px;
+  font-size: 15px;
   font-weight: 700;
+  color: #2a2524;
   letter-spacing: -0.01em;
-  color: #2a2321;
 }
 
-.transport-item.parking p {
-  margin: 0;
-  line-height: 1.5;  /* 👈 살짝 더 붙이기 */
+.parking-notice {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #b87474;
+  letter-spacing: -0.01em;
+}
+
+.parking-block + .parking-block {
+  margin-top: 14px;
 }
 
 .parking-title {
-  display: inline;
-  font-weight: 600;
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
   color: #1c1c1e;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
 }
 
 .parking-gap {
-  display: block;  
-  margin-top: 6px; 
-}
-    .parking-title + .parking-gap {
-  margin-top: 6px;
-}
-
-.parking-highlight {
   display: block;
-  margin-bottom: 10px;
-  color: #c17c7c;
-  font-weight: 500;
+  margin-top: 4px;
+  font-size: 13px;
   line-height: 1.6;
-}
-
-    /* 🚗 중요 문장 강조 */
-.parking-highlight {
-  color: #c17c7c;
-  font-weight: 500;
-}
-
-/* 🔢 ① ② 강조 */
-.parking-title {
-  display: inline;   /* 👈 inline-block → inline 변경 */
-  margin-top: 0;     /* 👈 4px → 0으로 변경 */
-  font-weight: 600;
-  color: #1c1c1e;
+  color: #5f5a59;
   letter-spacing: -0.01em;
-}
-   .parking-gap {
-  display: block;
-  margin-top: 0 !important;
 }
 
 
@@ -2368,27 +2330,25 @@
   </p>
 </div>
 
-  <div class="transport-item parking compact">
-    <strong>주차 안내</strong>
-    <div class="transport-item parking compact">
-  <strong>주차 안내</strong>
 
-  <p>
-    <span class="parking-highlight">
-      예식 당일 웨딩홀 앞이 혼잡할 수 있어<br>
-      하객 전용 주차장 이용을 부탁드려요 :)
-    </span>
+    <div class="transport-item parking compact">
+  <strong class="parking-card-title">주차 안내</strong>
+
+  <p class="parking-intro">
+    예식 당일 웨딩홀 앞이 혼잡할 수 있어<br>
+    하객 전용 주차장 이용을 부탁드려요 :)
+  </p>
+
+  <p class="parking-list">
+    <span class="parking-title">① 부평 우림 라이온스밸리 (3시간 무료)</span>
+    <span class="parking-gap">(인천시 부평구 부평대로 283)</span>
+    <span class="parking-gap">→ 지하 2층 A동 기둥번호 A05 주변 주차</span>
+    <span class="parking-gap">→ 갈산역 만남의 광장 이동</span>
+    <span class="parking-gap">→ 갈산역 2번 출구 이용(에스컬레이터)</span>
+
+    <span class="parking-title parking-section">② 갈산역 공영주차장 (2시간 무료)</span>
   </p>
 </div>
-  <span class="parking-title">① 부평 우림 라이온스밸리(3시간 무료)</span>
-  <span class="parking-gap">(인천시 부평구 부평대로 283)</span>
-  <span class="parking-gap">→ 지하 2층 A동 기둥번호 A05 주변 주차</span>
-  <span class="parking-gap">→ 갈산역 만남의 광장 이동</span>
-  <span class="parking-gap">→ 갈산역 2번 출구 이용(에스컬레이터)</span>
-</p>
-      <strong class="parking-title parking-gap">② 갈산역 공영주차장(2시간 무료)</strong>
-    </p>
-  </div>
 
 </div>
     </div>
