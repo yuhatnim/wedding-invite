@@ -2006,6 +2006,21 @@
   height: 18px;
   display: block;
 }
+    .highlight-first {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: #caa3ad;
+
+  display: inline-block;
+}
+    .highlight-first {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeUpSoft 1s ease forwards;
+}
   </style>
 </head>
 <body>
@@ -2065,7 +2080,9 @@
       <div class="section-label">Invitation</div>
       <div class="divider"></div>
 
-      <div class="poem-highlight">소중한 여러분을 초대합니다.</div>
+      <div class="poem-highlight">
+  <span class="highlight-first">소중한 여러분을 초대합니다.</span>
+</div>
 
       <div class="message">
         우연 같았던 만남 속에<br>
