@@ -1070,39 +1070,40 @@
   border-top: 1px solid rgba(60,60,67,0.05);
 }
 
-    .parking-title {
+.parking-title {
   display: flex;
   align-items: center;
-  gap: 9px;
-  font-size: 14px;
-  font-weight: 700;
+  gap: 6px;              /* 간격 살짝 줄임 */
+  font-size: 13px;       /* ⭐ 전체 살짝 축소 */
+  font-weight: 600;      /* 너무 두껍지 않게 */
   color: #1c1c1e;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.5;
 }
 
+/* 숫자 뱃지 */
 .parking-badge {
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
+  width: 18px;           /* ⭐ 작게 */
+  height: 18px;
+  flex: 0 0 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #3a3433;
-  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,241,238,0.9));
-  border: 1px solid rgba(60,60,67,0.08);
-  box-shadow:
-    0 4px 10px rgba(60,40,30,0.05),
-    inset 0 1px 0 rgba(255,255,255,0.92);
+  font-size: 9px;        /* ⭐ 숫자 작게 */
+  font-weight: 600;
+  color: #8a6f4d;
+  background: rgba(212, 175, 55, 0.12); /* 은은 골드 */
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: none;      /* ⭐ 그림자 제거해서 깔끔하게 */
 }
+
+/* 설명 텍스트 */
 .parking-gap {
   display: block;
-  margin-top: 6px;
-  padding-left: 31px;
-  font-size: 12px;
+  margin-top: 4px;
+  padding-left: 24px;    /* ⭐ 숫자 크기에 맞게 줄임 */
+  font-size: 11.5px;     /* ⭐ 더 작게 */
   line-height: 1.6;
   color: #6b6665;
   letter-spacing: -0.01em;
