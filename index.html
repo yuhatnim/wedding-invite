@@ -1026,22 +1026,34 @@
 
 .transport-item.parking.compact {
   display: block;
-  padding: 18px 18px 16px;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(255,255,255,0.52);
-  box-shadow: 0 10px 24px rgba(71,46,35,0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 20px 18px 18px;
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.68));
+  border: 1px solid rgba(255,255,255,0.62);
+  box-shadow:
+    0 14px 30px rgba(71,46,35,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .transport-title {
   display: block;
-  margin: 0 0 10px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #2a2524;
-  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #1f1b1a;
+  letter-spacing: -0.02em;
+}
+    .transport-title::after {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 2px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgba(202,168,176,0.9), rgba(202,168,176,0.18));
 }
 
 .parking-notice {
@@ -1054,22 +1066,19 @@
 
 .parking-block + .parking-block {
   margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(60,60,67,0.05);
 }
 
-.parking-title {
-  display: block;
+    .parking-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: 14px;
   font-weight: 700;
   color: #1c1c1e;
   letter-spacing: -0.02em;
-  line-height: 1.45;
-}
-    .parking-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 700;
+  line-height: 1.5;
 }
 
 .parking-badge {
@@ -1080,20 +1089,22 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-
   font-size: 11px;
   font-weight: 700;
-
-  background: rgba(255,255,255,0.82);
+  color: #3a3433;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,241,238,0.9));
   border: 1px solid rgba(60,60,67,0.08);
+  box-shadow:
+    0 4px 10px rgba(60,40,30,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.92);
 }
-
 .parking-gap {
   display: block;
-  margin-top: 4px;
-  font-size: 13px;
+  margin-top: 6px;
+  padding-left: 31px;
+  font-size: 12px;
   line-height: 1.6;
-  color: #5f5a59;
+  color: #6b6665;
   letter-spacing: -0.01em;
 }
 
