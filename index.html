@@ -1064,11 +1064,28 @@
   letter-spacing: -0.02em;
   line-height: 1.45;
 }
-    .parking-title span {
-  font-size: 12px;   /* 숫자만 더 작게 */
+    .parking-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
   font-weight: 700;
-  margin-right: 4px; /* 살짝 간격 */
-  opacity: 0.8;   
+}
+
+.parking-badge {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(60,60,67,0.08);
 }
 
 .parking-gap {
@@ -2431,7 +2448,8 @@
 
   <p class="parking-list">
     <span class="parking-title">
-  <span>①</span> 부평 우림 라이온스밸리 (3시간 무료)
+  <span class="parking-badge">1</span>
+  부평 우림 라이온스밸리 (3시간 무료)   
 </span>
     <span class="parking-gap">(인천시 부평구 부평대로 283)</span>
     <span class="parking-gap">→ 지하 2층 A동 기둥번호 A05 주변 주차</span>
@@ -2439,7 +2457,8 @@
     <span class="parking-gap">→ 갈산역 2번 출구 이용(에스컬레이터)</span>
 
    <span class="parking-title">
-  <span>②</span> 갈산역 공영주차장 (2시간 무료)
+  <span class="parking-badge">2</span>
+  갈산역 공영주차장 (2시간 무료)
 </span>
   </p>
 </div>
