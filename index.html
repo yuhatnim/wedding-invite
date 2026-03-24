@@ -2115,25 +2115,21 @@
 }
 
   .parking-card-title {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Cormorant Garamond', 'Noto Sans KR', serif;
   font-size: 1.2rem;
   font-weight: 600;
   color: #111;
   letter-spacing: 0.02em;
-  line-height: 1.4;
-  text-align: left; /* ⭐ 여기 핵심 */
-  margin-bottom: 10px;
-  padding-left: 4px;
-  border-left: 3px solid rgba(212, 175, 55, 0.8);
+  margin-bottom: 12px;
 }
 
 .parking-card-title .star {
-  display: inline-block;
-  margin-left: 2px;
-  font-size: 0.8rem;
-   color: #c6a86a;
-  transform: translateX(-1px);
+  font-size: 0.75rem;
+  color: #c6a86a; /* 은은 골드 */
+  transform: translateY(-1px);
 }
 
 @keyframes twinkle {
@@ -2484,8 +2480,9 @@
 
 
     <div class="transport-item parking compact">
-  <strong class="parking-card-title">
-  주차 이용 안내 <span class="star">✦</span>
+      
+ <strong class="parking-card-title">
+  <span class="star">✦</span> 주차 이용 안내
 </strong>
   <p class="parking-intro">
     예식 당일 웨딩홀 앞이 혼잡할 수 있어<br>
