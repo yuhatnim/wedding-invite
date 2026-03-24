@@ -552,7 +552,8 @@
     .family-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
+      align-items: stretch; 
     }
 
     .family-box {
@@ -566,7 +567,12 @@
     inset 0 1px 0 rgba(255,255,255,0.62);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+      height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+    
 
     .family-label {
   font-size: 10px;
@@ -2060,6 +2066,18 @@
     .section-title {
   font-size: 30px !important;
 }
+    .family-parent-single {
+  display: flex;
+  align-items: center;        /* 👈 수직 정렬 */
+  justify-content: center;    /* 👈 가운데 정렬 */
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.name-line {
+  white-space: nowrap;
+  display: inline-block;
+}
 
   </style>
 </head>
@@ -2154,17 +2172,23 @@
   <div class="family-box">
     <div class="family-label">GROOM</div>
     <div class="family-parent family-parent-single">
-      조영자의 아들 <strong>김진원</strong>
-      <a class="call-link inline" href="tel:01063444119" aria-label="신랑에게 전화하기">📞</a>
-    </div>
+  <span class="name-line">
+    조영자의 아들&nbsp;<strong>김진원</strong>
+  </span>
+
+  <a class="call-link inline" href="tel:01063444119" aria-label="신랑에게 전화하기">📞</a>
+</div>
   </div>
 
   <div class="family-box">
     <div class="family-label">BRIDE</div>
     <div class="family-parent family-parent-single">
-      유영창 · 황길자의 딸 <strong>유햇님</strong>
-      <a class="call-link inline" href="tel:01030752408" aria-label="신부에게 전화하기">📞</a>
-    </div>
+  <span class="name-line">
+    유영창 · 황길자의 딸&nbsp;<strong>유햇님</strong>
+  </span>
+
+  <a class="call-link inline" href="tel:01030752408" aria-label="신부에게 전화하기">📞</a>
+</div>
   </div>
 </div>
     </div>
