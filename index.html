@@ -2113,6 +2113,36 @@
   display: inline-block;
 }
 
+    .parking-card-title {
+  display: block;
+  font-family: 'Cormorant Garamond', 'Noto Sans KR', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.parking-card-title .star {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.9rem;
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
   </style>
 </head>
 <body>
@@ -2450,8 +2480,9 @@
 
 
     <div class="transport-item parking compact">
-  <strong class="parking-card-title">주차 안내</strong>
-
+  <strong class="parking-card-title">
+  주차 이용 안내 <span class="star">⭐</span>
+</strong>
   <p class="parking-intro">
     예식 당일 웨딩홀 앞이 혼잡할 수 있어<br>
     하객 전용 주차장 이용을 부탁드려요 :)
